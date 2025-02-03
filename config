@@ -1,0 +1,256 @@
+#######################
+####### Autostart ######
+##########################
+exec_always autotiling &
+exec_always picom -f &
+exec_always dunst &
+exec_always /usr/lib/polkit-kde-authentication-agent-1
+exec --no-startup-id polybar -r
+
+# Este arquivo foi gerado automaticamente pelo i3-config-wizard(1).
+# Ele não será sobrescrito, então edite-o como quiser.
+#
+# Caso você altere o layout do seu teclado em algum momento, exclua
+# este arquivo e execute novamente o i3-config-wizard(1).
+# i3 config file (v4)
+# Please see https://i3wm.org/docs/userguide.html for a complete reference!
+
+
+exec --no-startup-id xset s off
+exec --no-startup-id xset -dpms
+
+
+##################
+## Wallpaper ####
+#################
+exec --no-startup-id feh --bg-fill /home/mardonio/Imagens/anime-girl-sitting-above-the-building-6y-1440x900.jpg
+
+####################
+#### Gaps ########
+#################
+
+gaps inner 4
+gaps outer 4
+
+# cores das Janelas
+client.focused             #04d9ff #04d9ff #04d9ff #04d9ff #04d9ff 
+client.focused_inactive    #898989 #898989 #898989 #898989 #898989
+#client.unfocused           #04d9ff #04d9ff #04d9ff #04d9ff #04d9ff 
+#client.placeholder         #04d9ff #04d9ff #04d9ff #04d9ff #04d9ff 
+client.urgent              #3d110e #3d110e #3d110e #3d110e #3d110e
+
+# Remover tilulos das Janelas
+for_window [class="^.*"] border pixel 2
+
+##############################
+####### Tecla Modificadora####
+############################
+set $mod Mod4
+
+
+###############################
+######## FONTS ################
+##############################
+# Fonte para títulos de janelas. Também será usada pela barra, a menos que uma fonte diferente
+# seja usada no bloco bar {} abaixo.
+# font pango:monospace 8
+# font pango:Roboto 10
+font pango:Ubuntu Regular 10
+
+# Esta fonte é amplamente instalada, fornece muitos glifos unicode, da direita para a esquerda
+# renderização de texto e escalabilidade em telas retina/hidpi (graças ao pango).
+# font pango:DejaVu Sans Mono 8
+
+########################################
+### Arquivo de autostart Segundario ####
+#######################################
+# Inicie os arquivos .desktop de inicialização automática do XDG usando dex. Veja também
+# https://wiki.archlinux.org/index.php/XDG_Autostart
+exec --no-startup-id dex --autostart --environment i3
+
+######################################
+####### Dica de Uso ##################
+#####################################
+# A combinação de xss-lock, nm-applet e pactl é uma escolha popular, então
+# eles estão incluídos aqui como um exemplo. Modifique como achar melhor.
+
+########################################
+#### Bloqueo de Tela ##################
+#######################################
+# xss-lock pega um bloqueio de inibição de suspensão de logind e usará i3lock para bloquear a
+# tela antes de suspender. Use loginctl lock-session para bloquear sua tela.
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+
+#####################################
+##### Network ######################
+###################################
+# NetworkManager é a maneira mais popular de gerenciar redes sem fio no Linux,
+# e nm-applet é uma interface gráfica de usuário (GUI) de bandeja do sistema independente do ambiente de desktop para ele.
+# exec --no-startup-id nm-applet
+
+
+###################################################
+##### Controle de Volume Usando o pactl ##########
+#################################################
+# Use pactl para ajustar o volume no PulseAudio.
+#set $refresh_i3status killall -SIGUSR1 i3status
+#bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+#bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+#bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+#bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+
+# Use Mouse+$mod para arrastar janelas flutuantes para a posição desejada
+floating_modifier $mod
+
+# mova janelas de mosaico por meio de arrastar e soltar clicando com o botão esquerdo na barra de título,
+# ou clicando com o botão esquerdo em qualquer lugar da janela enquanto segura o modificador flutuante.
+tiling_drag modifier titlebar
+
+# Desligar o PC
+bindsym $mod+Shift+Delete exec wlogout
+
+
+# start a terminal
+bindsym $mod+Return exec i3-sensible-terminal
+
+# kill focused window
+bindsym $mod+q kill
+
+# iniciar dmenu (um iniciador de programa)
+#bindsym $mod+d exec --no-startup-id dmenu_run
+# Um substituto mais moderno para o dmenu é o rofi:
+bindsym $mod+space exec rofi -show-icons -show drun
+# Também há o i3-dmenu-desktop que exibe apenas aplicativos que enviam um
+# arquivo .desktop. Ele é um wrapper em torno do dmenu, então você precisa dele instalado.
+bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+
+# mudar foco
+# bindsym $mod+j focus left
+# bindsym $mod+k focus down
+# bindsym $mod+l focus up
+# bindsym $mod+ccedilla focus right
+
+# alternativamente, você pode usar as teclas do cursor:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# mover janela focada
+# bindsym $mod+Shift+j move left
+# bindsym $mod+Shift+k move down
+# bindsym $mod+Shift+l move up
+# bindsym $mod+Shift+ccedilla move right
+
+# alternativamente, você pode usar as teclas do cursor:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# dividido na orientação horizontal
+bindsym $mod+h split h
+
+# dividido em orientação vertical
+bindsym $mod+v split v
+
+# entra no modo de tela cheia para o contêiner em foco
+bindsym $mod+f fullscreen toggle
+
+# alterar layout do contêiner (empilhado, com guias, alternar divisão)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# alternar tiling / flutuante
+bindsym $mod+Shift+space floating toggle
+
+# alterar o foco entre janelas em tiling /flutuantes
+# bindsym $mod+space focus mode_toggle
+
+# focar o contêiner pai
+# bindsym $mod+a focus parent
+
+# focar o contêiner filho
+# bindsym $mod+d focus child
+
+# Defina nomes para áreas de trabalho padrão para as quais configuramos as combinações de teclas posteriormente>
+# Usamos variáveis ​​para evitar repetir os nomes em vários lugares.
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+# alternar para o espaço de trabalho
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+# mover o contêiner focado para o espaço de trabalho
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+# recarregue o arquivo de configuração
+bindsym $mod+Shift+c reload
+
+# reinicie o i3 no local (preserva seu layout/sessão, pode ser usado para atualizar o i3)
+bindsym $mod+Shift+r restart
+
+# exit i3 (desconecta você da sua sessão X)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+# redimensionar janela (você também pode usar o mouse para isso)
+mode "resize" {
+        # Essas ligações são acionadas assim que você entra no modo de redimensionamento
+
+        # Pressionar para a esquerda reduzirá a largura da janela.
+        # Pressionar para a direita aumentará a largura da janela.
+        # Pressionar para cima diminuirá a altura da janela.
+        # Pressionar para baixo aumentará a altura da janela.
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym ccedilla resize grow width 10 px or 10 ppt
+
+        # mesmas ligações, mas para as teclas de seta
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # de volta ao normal: Enter ou Escape ou $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+# Inicie o i3bar para exibir uma barra de espaço de trabalho (mais as informações do sistema i3status
+# descobre, se disponível)
+
+#bar {
+#  status_command i3blocks
+#} 
